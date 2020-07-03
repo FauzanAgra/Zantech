@@ -3,6 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Menu extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        is_logged_in();
+    }
+
     public function index()
     {
         $data['title'] = "Menu Management";
@@ -19,8 +25,8 @@ class Menu extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $this->db->insert('user_menu', ['menu' => $this->input->post('menu')]);
-            $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                Success, new menu added! 
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                Success, new menu added!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -72,5 +78,18 @@ class Menu extends CI_Controller
                 </div>');
             redirect('menu/submenu');
         }
+    }
+
+    public function delete($id)
+    {
+        $this->load->model('Menu_model', 'menu');
+        $this->menu->deleteData($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        The menu was successfully deleted!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>');
+        redirect('menu');
     }
 }

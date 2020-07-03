@@ -5,10 +5,11 @@
                     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-7">
 
                             <div class="card shadow mb-4">
                                 <div class="card-body">
+                                    <!-- Pesan Error  -->
                                     <?= form_error(
                                         'menu',
                                         '<div class="alert alert-danger alert-dismissible fade show" role="alert">',
@@ -39,10 +40,10 @@
                                                         <th scope="row"><?= $no++; ?></th>
                                                         <th><?= $mn['menu']; ?></th>
                                                         <td>
-                                                            <a href="" class="btn btn-danger btn-circle">
+                                                            <a href="<?= base_url('menu/delete/') . $mn['id']; ?>" class="btn btn-danger btn-circle" onclick="return confirm('Are you sure?');">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </a>
-                                                            <a href="" class="btn btn-success btn-circle">
+                                                            <a href="<?= base_url('menu/edit/') . $mn['id']; ?>" class="btn btn-success btn-circle">
                                                                 <i class="fas fa-pen"></i>
                                                             </a>
                                                         </td>
@@ -56,7 +57,7 @@
                         </div>
                     </div>
 
-                    <!-- Modal -->
+                    <!-- Modal Add Menu-->
                     <div class="modal fade" id="newMenuModal" tabindex="-1" role="dialog" aria-labelledby="newMenuModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -69,7 +70,8 @@
                                 <form action="<?= base_url('menu') ?>" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu names">
+                                            <label for="menu">Menu Names</label>
+                                            <input type="text" class="form-control" id="menu" name="menu">
                                         </div>
                                     </div>
                                     <div class="modal-footer">

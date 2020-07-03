@@ -12,4 +12,10 @@ class Menu_model extends CI_Model
                  ";
         return $this->db->query($query)->result_array();
     }
+
+    public function deleteData($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('user_menu');
+    }
 }
