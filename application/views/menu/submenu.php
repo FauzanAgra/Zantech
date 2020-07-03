@@ -77,9 +77,11 @@
                                 <form action="<?= base_url('menu/submenu') ?>" method="post">
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="title" name="title" placeholder="Submenu names">
+                                            <label for="title">Menu Names</label>
+                                            <input type="text" class="form-control" id="title" name="title" placeholder="">
                                         </div>
                                         <div class="form-group">
+                                            <label for="menu_id">Menu</label>
                                             <select name="menu_id" id="menu_id" class="form-control">
                                                 <option value="">Select Menu</option>
                                                 <?php foreach ($menu as $m) : ?>
@@ -88,10 +90,12 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="url" name="url" placeholder="Submenu url">
+                                            <label for="url">URL</label>
+                                            <input type="text" class="form-control" id="url" name="url" placeholder="">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="icon" name="icon" placeholder="Submenu icon">
+                                            <label for="icon">Icon</label>
+                                            <input type="text" class="form-control" id="icon" name="icon" placeholder="">
                                         </div>
                                         <div class="form-group">
                                             <div class="form-check">
