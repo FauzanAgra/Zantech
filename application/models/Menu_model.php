@@ -18,4 +18,15 @@ class Menu_model extends CI_Model
         $this->db->where('id', $id);
         $this->db->delete('user_menu');
     }
+
+    public function getMenuById($id)
+    {
+        return $this->db->get_where('user_menu', ['id' => $id])->row_array();
+    }
+
+    public function updateMenu()
+    {
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('user_menu', ['menu' => $this->input->post('menu')]);
+    }
 }

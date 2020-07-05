@@ -92,4 +92,36 @@ class Menu extends CI_Controller
         </div>');
         redirect('menu');
     }
+
+    public function editMenu($id)
+    {
+        $data['title'] = "Edit Menu";
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $this->load->model('Menu_model', 'menu');
+
+        //Kita ambil data dari Table 'user_menu' berdasarkan id
+        $data['menu'] = $this->menu->getMenuById($id);
+
+        $this->form_validation->set_rules('menu', 'Menu', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('menu/editmenu', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->menu->updateMenu();
+            $this->session->set_flashdata(
+                'message',
+                '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                The menu was success updated!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>'
+            );
+            redirect('menu');
+        }
+    }
 }

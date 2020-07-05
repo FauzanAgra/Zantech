@@ -43,7 +43,7 @@
                                                             <a href="<?= base_url('menu/delete/') . $mn['id']; ?>" class="btn btn-danger btn-circle" onclick="return confirm('Are you sure?');">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </a>
-                                                            <a href="<?= base_url('menu/edit/') . $mn['id']; ?>" class="btn btn-success btn-circle">
+                                                            <a href="<?= base_url('menu/editMenu/') . $mn['id']; ?>" class="btn btn-success btn-circle">
                                                                 <i class="fas fa-pen"></i>
                                                             </a>
                                                         </td>
