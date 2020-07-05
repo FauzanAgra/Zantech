@@ -144,4 +144,22 @@ class Admin extends CI_Controller
             redirect('admin/movies');
         }
     }
+
+    public function deleteMovies($id)
+    {
+        $data = $this->db->get_where('list_movies', ['id' => $id])->row_array();
+        unlink(FCPATH . 'assets/img/film/' . $data['image']);
+        $this->db->where('id', $id);
+        $this->db->delete('list_movies');
+        $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            Your movies has ben deleted and file picture!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>'
+        );
+        redirect('admin/movies');
+    }
 }

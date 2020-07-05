@@ -36,7 +36,7 @@
                                     <td><?= $m['rating'] ?></td>
                                     <td><?= $m['image'] ?></td>
                                     <td>
-                                        <a href="#" class="btn btn-danger">
+                                        <a href="<?= base_url('admin/deletemovies/') . $m['id']; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?')">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                         <a href="#" class="btn btn-warning">
