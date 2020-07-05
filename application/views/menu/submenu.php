@@ -47,10 +47,10 @@
                                                         <th><?= $sm['icon']; ?></th>
                                                         <th><?= $sm['is_active']; ?></th>
                                                         <td>
-                                                            <a href="" class="btn btn-danger btn-circle">
+                                                            <a href="<?= base_url('menu/deletesubmenu/') . $sm['id']; ?>" class="btn btn-danger btn-circle" onclick="return confirm('Apakah anda yakin?')">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </a>
-                                                            <a href="" class="btn btn-success btn-circle">
+                                                            <a href="<?= base_url('menu/editsubmenu/') . $sm['id']; ?>" class="btn btn-success btn-circle">
                                                                 <i class="fas fa-pen"></i>
                                                             </a>
                                                         </td>

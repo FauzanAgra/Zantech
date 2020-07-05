@@ -9,6 +9,7 @@ class Menu extends CI_Controller
         is_logged_in();
     }
 
+    //Fitur Select sudah include di Index
     public function index()
     {
         $data['title'] = "Menu Management";
@@ -31,6 +32,53 @@ class Menu extends CI_Controller
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>');
+            redirect('menu');
+        }
+    }
+
+    //Fitur Delete Menu
+    public function delete($id)
+    {
+        $this->load->model('Menu_model', 'menu');
+        $this->menu->deleteData($id);
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+         The menu was successfully deleted!
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+         </button>
+         </div>');
+        redirect('menu');
+    }
+
+    //Fitur Edit Menu
+    public function editMenu($id)
+    {
+        $data['title'] = "Edit Menu";
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $this->load->model('Menu_model', 'menu');
+
+        //Kita ambil data dari Table 'user_menu' berdasarkan id
+        $data['menu'] = $this->menu->getMenuById($id);
+
+        $this->form_validation->set_rules('menu', 'Menu', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('menu/editmenu', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->menu->updateMenu();
+            $this->session->set_flashdata(
+                'message',
+                '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                 The menu was success updated!
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+                 </div>'
+            );
             redirect('menu');
         }
     }
@@ -80,48 +128,53 @@ class Menu extends CI_Controller
         }
     }
 
-    public function delete($id)
+    public function deleteSubMenu($id)
     {
         $this->load->model('Menu_model', 'menu');
-        $this->menu->deleteData($id);
+        $this->menu->deleteSubMenuById($id);
         $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-        The menu was successfully deleted!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>');
-        redirect('menu');
+         The sub menu was successfully deleted!
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+         </button>
+         </div>');
+        redirect('menu/submenu');
     }
 
-    public function editMenu($id)
+    public function editSubMenu($id)
     {
-        $data['title'] = "Edit Menu";
+        $data['title'] = "Edit Sub Menu";
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $this->load->model('Menu_model', 'menu');
 
         //Kita ambil data dari Table 'user_menu' berdasarkan id
-        $data['menu'] = $this->menu->getMenuById($id);
+        $data['submenu'] = $this->menu->getSubMenuById($id);
 
-        $this->form_validation->set_rules('menu', 'Menu', 'required');
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('menu_id', 'Menu Id', 'required');
+        $this->form_validation->set_rules('is_active', 'Active', 'required');
+        $this->form_validation->set_rules('url', 'URL', 'required');
+        $this->form_validation->set_rules('icon', 'Icon', 'required');
+
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('menu/editmenu', $data);
+            $this->load->view('menu/editsubmenu', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->menu->updateMenu();
+            $this->menu->editSubMenu();
             $this->session->set_flashdata(
                 'message',
                 '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                The menu was success updated!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>'
+                 The Submenu was success updated!
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+                 </div>'
             );
-            redirect('menu');
+            redirect('menu/submenu');
         }
     }
 }
