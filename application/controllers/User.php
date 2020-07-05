@@ -38,7 +38,6 @@ class User extends CI_Controller
             $email = $this->input->post('email');
             $name = $this->input->post('name');
 
-
             //Cek jika ada gambar
             $upload_image = $_FILES['image']['name'];
 
@@ -143,5 +142,17 @@ class User extends CI_Controller
                 }
             }
         }
+    }
+
+    public function listMovies()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['title'] = "List Movies";
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/listmovies', $data);
+        $this->load->view('templates/footer');
     }
 }
