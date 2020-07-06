@@ -19,8 +19,8 @@
                                 <th scope="col">Year</th>
                                 <th scope="col">Rating</th>
                                 <th scope="col">Image</th>
-                                <th scope="col">Action</th>
                                 <th scope="col">Date Updated</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
@@ -35,15 +35,12 @@
                                     <td><?= $m['year'] ?></td>
                                     <td><?= $m['rating'] ?></td>
                                     <td><?= $m['image'] ?></td>
+                                    <td><?= date('d F Y - H:i', $m['date_updated']); ?></td>
                                     <td>
                                         <a href="<?= base_url('admin/deletemovies/') . $m['id']; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?')">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
-                                        <a href="#" class="btn btn-warning">
-                                            <i class="fas fa-pen"></i>
-                                        </a>
                                     </td>
-                                    <td><?= date('d F Y - H:i', $m['date_updated']); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
