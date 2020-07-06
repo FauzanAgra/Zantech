@@ -140,7 +140,7 @@ class Auth extends CI_Controller
             <span aria-hidden="true">&times;</span>
         </button>
         </div>');
-        redirect('auth');
+        redirect('landing_page');
     }
 
     public function blocked()
