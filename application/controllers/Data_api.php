@@ -9,7 +9,7 @@ class Data_api extends CI_Controller
         echo json_encode($listMovies);
     }
 
-    public function getMoviesId($id)
+    public function getMoviesById($id)
     {
         $listMovies = $this->db->get_where('list_movies', ['id' => $id])->row_array();
         echo json_encode($listMovies);
